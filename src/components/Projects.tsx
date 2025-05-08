@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
 import { useSectionObserver } from '../assets/hooks/useSectionObserver';
+import flatappImage from '../assets/images/projects/flat-app.png';
 
 const projects = [
   {
-    title: "E-commerce Platform",
-    description: "A full-featured online store with cart, checkout, and admin dashboard.",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-    image: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+    title: "Flat Management App",
+    description: "Web app for managing shared flats, including tracking expenses and chores.",
+    technologies: ["TypeScript", "React", "Node.js", "Firebase"],
+    image: flatappImage,
     link: "#"
   },
   {
@@ -49,7 +50,7 @@ function Projects({ id, setActiveSection }: { id: string, setActiveSection: (id:
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-text mb-4">
-            Featured <span className="text-primary">Projects</span>
+            Project <span className="text-primary">Highlights</span>
           </h2>
           <p className="text-xl text-text max-w-2xl mx-auto">
             Some of my recent work and personal projects
@@ -62,12 +63,12 @@ function Projects({ id, setActiveSection }: { id: string, setActiveSection: (id:
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.1 }}
               viewport={{ once: true }}
               whileHover={{ y: -10 }}
-              className="bg-bg rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all border border-muted/20"
+              className="bg-muted/40 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all border border-muted/20"
             >
-              <div className="h-48 overflow-hidden">
+              <div className="h-72 overflow-hidden">
                 <img 
                   src={project.image} 
                   alt={project.title} 
@@ -76,7 +77,7 @@ function Projects({ id, setActiveSection }: { id: string, setActiveSection: (id:
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-text mb-2">{project.title}</h3>
-                <p className="text-muted mb-4">{project.description}</p>
+                <p className="text-text/80 mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.technologies.map((tech, i) => (
                     <span key={i} className="px-3 py-1 bg-secondary/20 text-secondary rounded-full text-sm">
@@ -84,12 +85,12 @@ function Projects({ id, setActiveSection }: { id: string, setActiveSection: (id:
                     </span>
                   ))}
                 </div>
-                <a 
+                {/* <a 
                   href={project.link} 
                   className="inline-block px-4 py-2 bg-primary text-bg rounded-lg font-medium hover:bg-primary/90 transition-colors"
                 >
                   View Project
-                </a>
+                </a> */}
               </div>
             </motion.div>
           ))}

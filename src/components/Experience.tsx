@@ -14,39 +14,44 @@ interface Experience {
 
 const experienceData: Experience[] = [
   { 
-    year: '2022', 
-    title: 'Frontend Developer', 
-    company: 'Company A', 
+    year: '2025 - Present', 
+    title: 'Software Developer (Contract)', 
+    company: 'Juvare', 
     details: [
-      'Built responsive UI components using React and TypeScript',
-      'Improved user experience metrics by 30% through A/B testing',
-      'Collaborated with designers to implement pixel-perfect interfaces'
+      'Implementing first standalone incident and emergency management system.'
     ],
-    skills: ['React', 'TypeScript', 'CSS', 'Jest'],
+    skills: ['Incident Management', 'Emergency Systems', 'SaaS'],
     icon: <FaCode className="text-xl" />
   },
   { 
-    year: '2023', 
-    title: 'Fullstack Developer', 
-    company: 'Startup B', 
+    year: '2023 - 2024', 
+    title: 'Technical Project Manager', 
+    company: 'Juvare', 
     details: [
-      'Developed a SaaS dashboard with Node.js and React',
-      'Implemented real-time features using Socket.io',
-      'Reduced API response times by optimizing database queries'
+      'Managed client communications, defined needs, translated them into technical specifications, and ensured timely, satisfactory delivery.'
     ],
-    skills: ['Node.js', 'React', 'MongoDB', 'Socket.io'],
+    skills: ['Project Management', 'Client Communication', 'Technical Specifications'],
     icon: <FaBriefcase className="text-xl" />
   },
   { 
-    year: '2024', 
-    title: 'Lead Developer', 
-    company: 'Company C', 
+    year: '2020 - 2024', 
+    title: 'Software Developer', 
+    company: 'Juvare', 
     details: [
-      'Led a team of 5 developers in building a new product',
-      'Optimized backend services, reducing costs by 40%',
-      'Integrated third-party APIs and implemented CI/CD pipelines'
+      'Worked with clients to gather requirements and deliver full-stack solutions.',
+      'Managed communication, developed in agile/waterfall, and customized emergency management systems.'
     ],
-    skills: ['Team Leadership', 'AWS', 'Docker', 'CI/CD'],
+    skills: ['Full-Stack Development', 'Agile', 'Waterfall', 'Emergency Management Systems'],
+    icon: <FaCode className="text-xl" />
+  },
+  { 
+    year: '2020 - 2024', 
+    title: 'Website Designer and Developer (Freelance)', 
+    company: 'Part-time Freelance Work', 
+    details: [
+      'Helped clients build and revamp websites, managing timelines and guiding them on SEO, marketing, and CMS maintenance.'
+    ],
+    skills: ['Web Design', 'SEO', 'CMS', 'Marketing'],
     icon: <FaUsers className="text-xl" />
   }
 ];
@@ -55,7 +60,7 @@ export default function Experience({ id, setActiveSection }: { id: string, setAc
     const ref = useSectionObserver(id, setActiveSection);
   
 
-  const [expandedSections, setExpandedSections] = useState<boolean[]>(Array(experienceData.length).fill(false));
+  const [expandedSections, setExpandedSections] = useState<boolean[]>(Array(experienceData.length).fill(true));
 
   const toggleSection = (index: number) => {
     setExpandedSections((prev) => {
@@ -132,7 +137,7 @@ export default function Experience({ id, setActiveSection }: { id: string, setAc
                           {exp.skills.map((skill, i) => (
                             <span
                               key={i}
-                              className="px-3 py-1 bg-accent text-bg rounded-full text-sm"
+                              className="px-3 py-1 bg-accent text-dark rounded-full text-sm"
                             >
                               {skill}
                             </span>

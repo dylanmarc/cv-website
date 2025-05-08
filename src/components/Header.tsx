@@ -2,28 +2,65 @@ import { motion } from 'framer-motion';
 import DownArrowIcon from '../assets/icons/DownArrowIcon';
 import ParticleBackground from '../assets/ParticleBackground';
 import { useSectionObserver } from '../assets/hooks/useSectionObserver';
+import { useEffect, useState } from 'react';
 
 function Header({ id, setActiveSection }: { id: string; setActiveSection: (id: string) => void }) {
-  const circleConfig = [
-    {
-      color: { from: 'var(--color-primary)', to: 'var(--color-accent)' },
-      startScale: 1.5,
-      scale: 1.7,
-      duration: 4,
-      rotateDirection: 360,
-      opacity: [0.2, 0.4, 0.2],
-      borderRadius: ["50%", "40%", "60%", "50%"],
-    },
-    {
-      color: { from: 'var(--color-secondary)', to: 'var(--color-muted)' },
-      startScale: 1.5,
-      scale: 1.7,
-      duration: 6,
-      rotateDirection: -360,
-      opacity: [0.1, 0.3, 0.1],
-      borderRadius: ["50%", "45%", "55%", "50%"],
-    },
-  ];
+  const useResponsiveCircleConfig = () => {
+    const [circleConfig, setCircleConfig] = useState([
+      {
+        color: { from: 'var(--color-primary)', to: 'var(--color-accent)' },
+        startScale: 1.5,
+        scale: 1.7,
+        duration: 4,
+        rotateDirection: 360,
+        opacity: [0.2, 0.4, 0.2],
+        borderRadius: ["50%", "40%", "60%", "50%"],
+      },
+      {
+        color: { from: 'var(--color-secondary)', to: 'var(--color-muted)' },
+        startScale: 1.5,
+        scale: 1.7,
+        duration: 6,
+        rotateDirection: -360,
+        opacity: [0.1, 0.3, 0.1],
+        borderRadius: ["50%", "45%", "55%", "50%"],
+      },
+    ]);
+
+    useEffect(() => {
+      const updateCircleConfig = () => {
+        const isSmallScreen = window.innerWidth < 768;
+        setCircleConfig([
+          {
+            color: { from: 'var(--color-primary)', to: 'var(--color-accent)' },
+            startScale: isSmallScreen ? 1 : 1.5,
+            scale: isSmallScreen ? 1.2 : 1.7,
+            duration: 4,
+            rotateDirection: 360,
+            opacity: [0.2, 0.4, 0.2],
+            borderRadius: ["50%", "40%", "60%", "50%"],
+          },
+          {
+            color: { from: 'var(--color-secondary)', to: 'var(--color-muted)' },
+            startScale: isSmallScreen ? 1 : 1.5,
+            scale: isSmallScreen ? 1.2 : 1.7,
+            duration: 6,
+            rotateDirection: -360,
+            opacity: [0.1, 0.3, 0.1],
+            borderRadius: ["50%", "45%", "55%", "50%"],
+          },
+        ]);
+      };
+
+      updateCircleConfig();
+      window.addEventListener('resize', updateCircleConfig);
+      return () => window.removeEventListener('resize', updateCircleConfig);
+    }, []);
+
+    return circleConfig;
+  };
+
+  const circleConfig = useResponsiveCircleConfig();
 
   
 
@@ -35,10 +72,6 @@ function Header({ id, setActiveSection }: { id: string; setActiveSection: (id: s
       ref={ref}
       className="min-h-screen relative flex justify-center items-center h-screen overflow-hidden bg-bg text-text"
     >
-      {/* Particle Background */}
-      <div className="absolute inset-0 z-9">
-        <ParticleBackground />
-      </div>
 
       <motion.div
         className="absolute inset-0 flex justify-center items-center z-10"
@@ -46,7 +79,7 @@ function Header({ id, setActiveSection }: { id: string; setActiveSection: (id: s
         animate={{ scale: [circleConfig[0].startScale, 1.2, 1], opacity: [0, 0.3, 0.6] }}
         transition={{ duration: 2, ease: "easeInOut" }}
       >
-        {/* {circleConfig.map((circle, index) => (
+        {circleConfig.map((circle, index) => (
           <motion.div
             key={index}
             className={`absolute ${index === 0 ? "w-96 h-96" : "w-80 h-80"} rounded-full`}
@@ -65,7 +98,7 @@ function Header({ id, setActiveSection }: { id: string; setActiveSection: (id: s
               repeatType: index === 0 ? "reverse" : "mirror",
             }}
           />
-        ))} */}
+        ))}
       </motion.div>
       {/* Header Content */}
       <div className="relative z-11 text-center px-6 md:px-12">
@@ -94,12 +127,21 @@ function Header({ id, setActiveSection }: { id: string; setActiveSection: (id: s
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8 }}>
-            <a
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
               href="#experience"
-              className="inline-block px-8 py-3 bg-primary text-bg rounded-full font-semibold shadow-lg hover:bg-primary/90 transition-all hover:scale-105"
-            >
-              Explore My Journey
-            </a>
+              className="inline-block px-6 py-3 bg-primary text-bg rounded-full font-semibold shadow-lg hover:bg-primary/90 transition-all hover:scale-105 flex items-center justify-center w-70 sm:w-auto"
+              >
+              <span className="mr-2">🌟</span> Explore My Journey
+              </a>
+              <a
+              href="./Dylan Evans - Full Stack Developer.pdf"
+              download="Dylan Evans - Full Stack Developer.pdf"
+              className="inline-block px-6 py-3 bg-secondary text-bg rounded-full font-semibold shadow-lg hover:bg-secondary/90 transition-all hover:scale-105 flex items-center justify-center w-50 sm:w-auto"
+              >
+              <span className="mr-2">📄</span> Download CV
+              </a>
+            </div>
           </motion.div>
         </motion.div>
       </div>
